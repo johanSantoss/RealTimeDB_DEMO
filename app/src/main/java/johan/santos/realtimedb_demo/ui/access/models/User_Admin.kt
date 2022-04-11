@@ -1,4 +1,4 @@
-package johan.santos.reservesisha.ui.access.models
+package johan.santos.realtimedb_demo.ui.access.models
 
 import java.util.*
 
