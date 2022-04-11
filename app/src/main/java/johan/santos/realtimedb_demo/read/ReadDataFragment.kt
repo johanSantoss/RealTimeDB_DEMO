@@ -73,6 +73,32 @@ class ReadDataFragment : Fragment() {
 
     }
 
+    private fun readData2(userName: String) {
+
+        database = FirebaseDatabase.getInstance().getReference("AllUsers/Y9JsbTzz2ENnjR3IL5ICsIOolvH2")
+        database.child("userDates").get().addOnSuccessListener {
+
+            if (it.exists()){
+
+                val firstname = it.child("email").value
+
+                Toast.makeText(activity,"Successfuly Read",Toast.LENGTH_SHORT).show()
+                binding.etusername.text.clear()
+                binding.tvFirstName.text = firstname.toString()
+                binding.tvLastName.text = firstname.toString()
+                binding.tvAge.text = firstname.toString()
+
+            }else{
+                Toast.makeText(activity,"User Doesn't Exist",Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity,"Failed",Toast.LENGTH_SHORT).show()
+        }
+
+
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ReadDataViewModel::class.java)

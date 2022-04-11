@@ -22,31 +22,32 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import johan.santos.realtimedb_demo.model.User
+import johan.santos.realtimedb_demo.read.ReadDataViewModel
 
 
 class LoginFragment : Fragment() {
-
-    private lateinit var binding : LoginFragmentBinding
-    private lateinit var viewModel: LoginViewModel
-    private lateinit var auth: FirebaseAuth
-    //private lateinit var database: FirebaseDatabase
-    private lateinit var typeUser : String
 
     companion object {
         fun newInstance() = LoginFragment()
         private const val TAG = "EmailPassword"
     }
 
+    private lateinit var binding : LoginFragmentBinding
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database : DatabaseReference
+    private lateinit var typeUser : String
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        /*
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.login_fragment,
             container,
             false
-        )
+        )*/
+        binding = LoginFragmentBinding.inflate(layoutInflater)
 
         auth = (activity as MainActivity).getAuth()
         // Conection to DataBase
@@ -67,6 +68,7 @@ class LoginFragment : Fragment() {
             viewModel.setPassword(binding.editTextPassAuth.text.toString().trim())
             // realizar SING con mial y pass
             signIn( viewModel.email.value.toString(), viewModel.password.value.toString())
+            readData()
         }
 
         binding.textBtnRegister.setOnClickListener {
@@ -115,11 +117,33 @@ class LoginFragment : Fragment() {
         binding.editTextPassAuth.editableText.clear()
     }
 
+    private fun readData() {
+
+        database = FirebaseDatabase.getInstance().getReference("AllUsers/Y9JsbTzz2ENnjR3IL5ICsIOolvH2")
+        database.child("userDates").get().addOnSuccessListener {
+
+            if (it.exists()){
+
+                val firstname = it.child("email").value
+
+                Toast.makeText(activity,firstname.toString(),Toast.LENGTH_SHORT).show()
+
+            }else{
+                Toast.makeText(activity,"User Doesn't Exist",Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(activity,"Failed",Toast.LENGTH_SHORT).show()
+        }
+
+
+
+    }
+
     private fun setInitFragment(){
         // get type of user------------------------------------------------------------------------------------------------------------
-        var typeUser : String = getTypeUser()
-        (activity as MainActivity).toastView(typeUser)
-        //typeUser = "CurrentUser"
+        //var typeUser : String = getTypeUser()
+        //(activity as MainActivity).toastView(typeUser)
+        val typeUser = "Admin"
 
         // generar action al directions to Main Fragment
         //var action: NavDirections? = null
@@ -145,11 +169,11 @@ class LoginFragment : Fragment() {
         var type = "fallo-1"
         // Se genera el acceso a la DDBB al nodo de cada usuari
 
-        //val database = FirebaseDatabase.getInstance("https://reservesisha96-default-rtdb.europe-west1.firebasedatabase.app/")
-        val database : DatabaseReference
-        database = FirebaseDatabase.getInstance().getReference("Users/wasach")
 
-        database.get().addOnSuccessListener {
+        var database : DatabaseReference
+        database = FirebaseDatabase.getInstance().getReference("Users")
+
+        database.child("t1").get().addOnSuccessListener {
             if (it.exists()){
                 val firstname = it.child("firstName").value
                 val lastName = it.child("lastName").value
@@ -165,6 +189,8 @@ class LoginFragment : Fragment() {
         return type
     }
 
+
+    /*
     override fun onResume() {
         super.onResume()
         // recuperar "ActionBar" para esconderla
@@ -173,7 +199,7 @@ class LoginFragment : Fragment() {
 
         // enconder todos los menus
         (activity as MainActivity).disableMenus()
-    }
+    }*/
 
     override fun onStop() {
         super.onStop()
@@ -190,6 +216,11 @@ class LoginFragment : Fragment() {
                 "CurrentUser"   -> (activity as MainActivity).enableMenuCurrentUser()
             }
         }
+    }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        // TODO: Use the ViewModel
     }
 
 }
