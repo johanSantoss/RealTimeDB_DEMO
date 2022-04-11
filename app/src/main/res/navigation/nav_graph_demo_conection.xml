@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graf"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="johan.santos.realtimedb_demo.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_updateDataFragment"
+            app:destination="@id/updateDataFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_registreDataFragment"
+            app:destination="@id/registreDataFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_readDataFragment2"
+            app:destination="@id/readDataFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/readDataFragment2"
+        android:name="johan.santos.realtimedb_demo.read.ReadDataFragment"
+        android:label="read_fragment"
+        tools:layout="@layout/read_fragment" />
+    <fragment
+        android:id="@+id/registreDataFragment"
+        android:name="johan.santos.realtimedb_demo.registre.RegistreDataFragment"
+        android:label="registre_data_fragment"
+        tools:layout="@layout/registre_data_fragment" />
+    <fragment
+        android:id="@+id/updateDataFragment"
+        android:name="johan.santos.realtimedb_demo.update.UpdateDataFragment"
+        android:label="update_data_fragment"
+        tools:layout="@layout/update_data_fragment" />
+</navigation>

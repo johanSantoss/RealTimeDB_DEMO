@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.adminUser.AdminMainFragment">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin_Main"
+            android:textColor="@color/black"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.062" />
+
+        <Button
+            android:id="@+id/btnLogut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logut"
+            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <Button
+            android:id="@+id/manageUsers"
+            android:layout_width="273dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="124dp"
+            android:backgroundTint="@color/buttonColor"
+            android:text="@string/manageUser"
+            app:layout_constraintEnd_toEndOf="@+id/btnLogut"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="@+id/btnLogut"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogut" />
+
+        <Button
+            android:id="@+id/manageBusiness"
+            android:layout_width="273dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="@color/buttonColor"
+            android:text="@string/manageBusiness"
+            app:layout_constraintEnd_toEndOf="@+id/manageUsers"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/manageUsers"
+            app:layout_constraintTop_toBottomOf="@+id/manageUsers" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
